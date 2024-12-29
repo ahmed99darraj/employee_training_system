@@ -1,0 +1,83 @@
+{% extends 'training/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">{{ title }}</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form.type|as_crispy_field }}
+                                {{ form.period|as_crispy_field }}
+                                {{ form.name|as_crispy_field }}
+                                {{ form.instructor|as_crispy_field }}
+                                {{ form.target_audience|as_crispy_field }}
+                                {{ form.room|as_crispy_field }}
+                                {{ form.supervising_office|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.days|as_crispy_field }}
+                                {{ form.start_date|as_crispy_field }}
+                                {{ form.end_date|as_crispy_field }}
+                                {{ form.status|as_crispy_field }}
+                                {{ form.max_participants|as_crispy_field }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                {{ form.description|as_crispy_field }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                {{ form.syllabus|as_crispy_field }}
+                                {{ form.course_material|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.presentation|as_crispy_field }}
+                                {{ form.video|as_crispy_field }}
+                            </div>
+                        </div>
+                        
+                        {% if form.instance.pk %}
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    {% if form.instance.syllabus %}
+                                        <p><strong>المنهج الحالي:</strong> <a href="{{ form.instance.syllabus.url }}" target="_blank">تحميل</a></p>
+                                    {% endif %}
+                                    {% if form.instance.course_material %}
+                                        <p><strong>المواد التدريبية الحالية:</strong> <a href="{{ form.instance.course_material.url }}" target="_blank">تحميل</a></p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {% if form.instance.presentation %}
+                                        <p><strong>العرض التقديمي الحالي:</strong> <a href="{{ form.instance.presentation.url }}" target="_blank">تحميل</a></p>
+                                    {% endif %}
+                                    {% if form.instance.video %}
+                                        <p><strong>الفيديو الحالي:</strong> <a href="{{ form.instance.video.url }}" target="_blank">مشاهدة</a></p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">حفظ</button>
+                            <a href="{% url 'manage_courses' %}" class="btn btn-secondary">إلغاء</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

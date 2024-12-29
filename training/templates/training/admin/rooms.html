@@ -1,0 +1,40 @@
+{% extends 'training/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>إدارة القاعات</h2>
+        <a href="{% url 'add_room' %}" class="btn btn-primary">إضافة قاعة جديدة</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>اسم القاعة</th>
+                    <th>السعة</th>
+                    <th>المكتب</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for room in rooms %}
+                <tr>
+                    <td>{{ room.name }}</td>
+                    <td>{{ room.capacity }}</td>
+                    <td>{{ room.office.name }}</td>
+                    <td>
+                        <a href="{% url 'edit_room' room.id %}" class="btn btn-sm btn-warning">تعديل</a>
+                        <a href="{% url 'delete_room' room.id %}" class="btn btn-sm btn-danger" onclick="return confirm('هل أنت متأكد من حذف هذه القاعة؟')">حذف</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">لا توجد قاعات مضافة</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

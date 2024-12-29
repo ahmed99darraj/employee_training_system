@@ -1,0 +1,32 @@
+{% extends 'training/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">{% if office %}تعديل مكتب{% else %}إضافة مكتب جديد{% endif %}</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="form-label">اسم المكتب</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ office.name|default:'' }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="location" class="form-label">الموقع</label>
+                            <input type="text" class="form-control" id="location" name="location" value="{{ office.location|default:'' }}" required>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">حفظ</button>
+                            <a href="{% url 'manage_offices' %}" class="btn btn-secondary">إلغاء</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

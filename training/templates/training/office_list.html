@@ -1,0 +1,23 @@
+{% extends 'training/base.html' %}
+
+{% block content %}
+<h2 class="mb-4">مكاتب التدريب</h2>
+
+<div class="row">
+    {% for office in offices %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ office.name }}</h5>
+                    <p class="card-text">{{ office.location }}</p>
+                    <a href="{% url 'office_courses' office.id %}" class="btn btn-primary">عرض الدورات</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col">
+            <p>لا توجد مكاتب متاحة حالياً.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

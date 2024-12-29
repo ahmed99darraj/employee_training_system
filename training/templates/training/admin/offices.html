@@ -1,0 +1,52 @@
+{% extends 'training/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>إدارة المكاتب</h2>
+        <a href="{% url 'add_office' %}" class="btn btn-success">إضافة مكتب جديد</a>
+    </div>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>الاسم</th>
+                    <th>الموقع</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for office in offices %}
+                <tr>
+                    <td>{{ office.name }}</td>
+                    <td>{{ office.location }}</td>
+                    <td>
+                        <a href="{% url 'edit_office' office.id %}" class="btn btn-sm btn-primary">تعديل</a>
+                        <a href="{% url 'delete_office' office.id %}" class="btn btn-sm btn-danger">حذف</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center">لا توجد مكاتب مضافة</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="mt-3">
+        <a href="{% url 'admin_panel' %}" class="btn btn-secondary">العودة للوحة التحكم</a>
+    </div>
+</div>
+{% endblock %}

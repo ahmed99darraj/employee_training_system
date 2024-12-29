@@ -1,0 +1,23 @@
+{% extends 'training/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">تأكيد الحذف</h3>
+                </div>
+                <div class="card-body">
+                    <p class="text-center">هل أنت متأكد من حذف "{{ object }}"؟</p>
+                    <form method="post" class="text-center">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">نعم، احذف</button>
+                        <a href="javascript:history.back()" class="btn btn-secondary">إلغاء</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

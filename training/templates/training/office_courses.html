@@ -1,0 +1,31 @@
+{% extends 'training/base.html' %}
+
+{% block content %}
+<h2 class="mb-4">الدورات المتاحة في {{ office.name }}</h2>
+
+<div class="row">
+    {% for course in courses %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.title }}</h5>
+                    <p class="card-text">{{ course.description }}</p>
+                    <ul class="list-unstyled">
+                        <li><strong>المدرب:</strong> {{ course.instructor }}</li>
+                        <li><strong>الموقع:</strong> {{ course.location }}</li>
+                        <li><strong>تاريخ البدء:</strong> {{ course.start_date|date:"Y-m-d" }}</li>
+                        <li><strong>تاريخ الانتهاء:</strong> {{ course.end_date|date:"Y-m-d" }}</li>
+                        <li><strong>السعة:</strong> {{ course.capacity }}</li>
+                        <li><strong>الفصل الدراسي:</strong> {{ course.get_semester_display }}</li>
+                    </ul>
+                    <a href="{% url 'enroll_course' course.id %}" class="btn btn-primary">التسجيل في الدورة</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col">
+            <p>لا توجد دورات متاحة حالياً في هذا المكتب.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'training/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">لوحة التحكم</h2>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">إدارة المستخدمين</h5>
+                </div>
+                <div class="card-body">
+                    <p>إدارة حسابات المستخدمين والصلاحيات</p>
+                    <a href="{% url 'manage_users' %}" class="btn btn-primary">إدارة المستخدمين</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">إدارة المكاتب</h5>
+                </div>
+                <div class="card-body">
+                    <p>إدارة مكاتب التدريب وفروعها</p>
+                    <a href="{% url 'manage_offices' %}" class="btn btn-success">إدارة المكاتب</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="card-title mb-0">إدارة المدربين</h5>
+                </div>
+                <div class="card-body">
+                    <p>إدارة مقدمي الدورات والبرامج</p>
+                    <a href="{% url 'manage_instructors' %}" class="btn btn-info">إدارة المدربين</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="card-title mb-0">إدارة الدورات</h5>
+                </div>
+                <div class="card-body">
+                    <p>إدارة الدورات التدريبية والبرامج</p>
+                    <a href="{% url 'manage_courses' %}" class="btn btn-warning">إدارة الدورات</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="card-title mb-0">إدارة القاعات</h5>
+                </div>
+                <div class="card-body">
+                    <p>إدارة قاعات التدريب والسعة</p>
+                    <a href="{% url 'manage_rooms' %}" class="btn btn-secondary">إدارة القاعات</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="card-title mb-0">إحصائيات النظام</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col">
+                            <h3>{{ instructors_count }}</h3>
+                            <p>المدربون</p>
+                        </div>
+                        <div class="col">
+                            <h3>{{ users_count }}</h3>
+                            <p>المستخدمون</p>
+                        </div>
+                        <div class="col">
+                            <h3>{{ courses_count }}</h3>
+                            <p>الدورات</p>
+                        </div>
+                        <div class="col">
+                            <h3>{{ offices_count }}</h3>
+                            <p>المكاتب</p>
+                        </div>
+                        <div class="col">
+                            <h3>{{ rooms_count }}</h3>
+                            <p>القاعات</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

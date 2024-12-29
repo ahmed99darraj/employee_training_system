@@ -1,0 +1,102 @@
+{% extends 'training/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">{{ course.name }}</h5>
+                        <div>
+                            <a href="{% url 'edit_course' course.id %}" class="btn btn-light btn-sm">تعديل</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>النوع:</strong> {{ course.get_type_display }}</p>
+                            <p><strong>الفترة:</strong> {{ course.get_period_display }}</p>
+                            <p><strong>المدرب:</strong> {{ course.instructor }}</p>
+                            <p><strong>المستهدفون:</strong> {{ course.get_target_audience_display }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>القاعة:</strong> {{ course.room }}</p>
+                            <p><strong>الجهة المشرفة:</strong> {{ course.supervising_office }}</p>
+                            <p><strong>الأيام:</strong> {{ course.days }}</p>
+                            <p><strong>الحالة:</strong> {{ course.get_status_display }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h6>وصف الدورة:</h6>
+                        <p>{{ course.description|linebreaks }}</p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h6>الملفات والمواد التدريبية:</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {% if course.syllabus %}
+                                    <p>
+                                        <i class="fas fa-file-pdf"></i>
+                                        <a href="{{ course.syllabus.url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                                            تحميل المنهج الدراسي
+                                        </a>
+                                    </p>
+                                {% endif %}
+                                
+                                {% if course.course_material %}
+                                    <p>
+                                        <i class="fas fa-file-archive"></i>
+                                        <a href="{{ course.course_material.url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                                            تحميل المواد التدريبية
+                                        </a>
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                {% if course.presentation %}
+                                    <p>
+                                        <i class="fas fa-file-powerpoint"></i>
+                                        <a href="{{ course.presentation.url }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                                            تحميل العرض التقديمي
+                                        </a>
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if course.video %}
+                        <div class="mt-4">
+                            <h6>الفيديو التعريفي:</h6>
+                            <div class="ratio ratio-16x9">
+                                <video controls>
+                                    <source src="{{ course.video.url }}" type="video/mp4">
+                                    متصفحك لا يدعم تشغيل الفيديو.
+                                </video>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">معلومات إضافية</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>تاريخ البداية:</strong> {{ course.start_date }}</p>
+                    <p><strong>تاريخ النهاية:</strong> {{ course.end_date }}</p>
+                    <p><strong>العدد الأقصى للمشاركين:</strong> {{ course.max_participants }}</p>
+                    <p><strong>عدد المسجلين:</strong> {{ course.enrollment_set.count }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'training/base.html' %}
+
+{% block content %}
+<h2 class="mb-4">مرحباً {{ user.get_full_name|default:user.username }}</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>دوراتي الحالية</h3>
+            </div>
+            <div class="card-body">
+                {% if enrollments %}
+                    <div class="list-group">
+                        {% for enrollment in enrollments %}
+                            <div class="list-group-item">
+                                <h5 class="mb-1">{{ enrollment.course.title }}</h5>
+                                <p class="mb-1">المدرب: {{ enrollment.course.instructor }}</p>
+                                <p class="mb-1">الموقع: {{ enrollment.course.location }}</p>
+                                <p class="mb-1">تاريخ البدء: {{ enrollment.course.start_date|date:"Y-m-d" }}</p>
+                                <p class="mb-0">الحالة: {{ enrollment.get_status_display }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>لم تسجل في أي دورة بعد.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3>الدورات المتاحة</h3>
+            </div>
+            <div class="card-body">
+                {% if available_courses %}
+                    <div class="list-group">
+                        {% for course in available_courses %}
+                            <div class="list-group-item">
+                                <h5 class="mb-1">{{ course.title }}</h5>
+                                <p class="mb-1">{{ course.description|truncatewords:30 }}</p>
+                                <p class="mb-1">المدرب: {{ course.instructor }}</p>
+                                <p class="mb-1">الموقع: {{ course.location }}</p>
+                                <p class="mb-1">تاريخ البدء: {{ course.start_date|date:"Y-m-d" }}</p>
+                                <a href="{% url 'enroll_course' course.id %}" class="btn btn-primary">التسجيل في الدورة</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>لا توجد دورات متاحة حالياً.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'training/base.html' %}
+
+{% block content %}
+<h2 class="mb-4">دوراتي التدريبية</h2>
+
+<div class="row">
+    {% if enrollments %}
+        {% for enrollment in enrollments %}
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ enrollment.course.title }}</h5>
+                        <ul class="list-unstyled">
+                            <li><strong>المدرب:</strong> {{ enrollment.course.instructor }}</li>
+                            <li><strong>الموقع:</strong> {{ enrollment.course.location }}</li>
+                            <li><strong>تاريخ البدء:</strong> {{ enrollment.course.start_date|date:"Y-m-d" }}</li>
+                            <li><strong>تاريخ الانتهاء:</strong> {{ enrollment.course.end_date|date:"Y-m-d" }}</li>
+                            <li><strong>المكتب:</strong> {{ enrollment.course.office.name }}</li>
+                            <li><strong>الحالة:</strong> {{ enrollment.get_status_display }}</li>
+                        </ul>
+                        {% if enrollment.certificate_issued %}
+                            <a href="{{ enrollment.certificate_file.url }}" class="btn btn-success" target="_blank">
+                                تحميل الشهادة
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="col">
+            <div class="alert alert-info">
+                لم تسجل في أي دورة تدريبية حتى الآن.
+                <a href="{% url 'office_list' %}" class="alert-link">استعرض الدورات المتاحة</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
